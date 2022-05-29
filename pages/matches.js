@@ -11,16 +11,27 @@ import Button from '../components/general/Button';
 import Error from '../components/general/Error';
 import Header from '../components/general/Header';
 
+export async function getServerSideProps() {
+  let venues, error = null;
+
+  try{
+    venues = await prisma.venues.findMany();
+} catch(e) {
+    error = "An unknown error occurred."
+}
+
+  return { props: { venues, error }}
+}
+
 /**
  * Matches page (/matches). Shows matches by venue in a user-friendly card format.
  */
-export default function Matches() {
+export default function Matches({ venues, error }) {
   // Selected venue state.
   const [selectedVenue, setSelectedVenue] = useState(null);
 
   // SWR hooks for fetching venue and match records.
-  const { data: venues, error: venuesError } = useSWR('/api/venues', fetcher)
-  const { data: matches, error: error } = useSWR('/api/matches/' + (selectedVenue !== null ? selectedVenue.name : ""), fetcher)
+  const { data: matches, error: matchesError } = useSWR('/api/matches/' + (selectedVenue !== null ? selectedVenue.name : ""), fetcher)
 
   // useSWRConfig hook to manually mutate (aka revalidate) match data when we've created a new record.
   const { mutate } = useSWRConfig()
@@ -38,7 +49,7 @@ export default function Matches() {
       </div>
 
       {/* Render error message if we can't query the matches for a given venue. */}
-      {venuesError &&
+      {error &&
         <Error message={"Couldn't load venues."}/>
       }
 
@@ -50,7 +61,7 @@ export default function Matches() {
       }
 
       {/* Render error message if we can't query the matches for a given venue. */}
-      {error && selectedVenue &&
+      {matchesError && selectedVenue &&
         <Error message={"Couldn't load matches."}/>
       }
 
