@@ -4,7 +4,7 @@ import Header from '../components/general/Header';
 import RankingsTable from '../components/rankings/RankingsTable';
 
 export async function getServerSideProps() {
-  let data, error;
+  let data, error = null;
 
   try{
       data = await prisma.rankings.findMany();
