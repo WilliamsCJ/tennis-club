@@ -2,6 +2,7 @@ import { React, useState } from 'react';
 import useSWR, { useSWRConfig} from 'swr';
 
 import fetcher from '../lib/fetcher';
+import prisma from '../lib/prisma'
 
 import DropDown from '../components/matches/Dropdown';
 import MatchCard from '../components/matches/MatchCard';

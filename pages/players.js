@@ -1,9 +1,10 @@
 import { React, useState } from 'react';
 
+import prisma from '../lib/prisma'
+
 import Button from '../components/general/Button';
 import Error from '../components/general/Error';
 import Header from '../components/general/Header';
-
 import NewPlayer from '../components/players/NewPlayer';
 import PlayersTable from '../components/players/PlayersTable';
 

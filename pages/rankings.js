@@ -3,6 +3,8 @@ import Error from '../components/general/Error';
 import Header from '../components/general/Header';
 import RankingsTable from '../components/rankings/RankingsTable';
 
+import prisma from '../lib/prisma'
+
 export async function getServerSideProps() {
   let data, error = null;
 
