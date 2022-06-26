@@ -9,7 +9,7 @@ import Header from '../components/general/Header';
 import NewPlayer from '../components/players/NewPlayer';
 import PlayersTable from '../components/players/PlayersTable';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   let data, error = null;
   log.debug("fetching players")
 
