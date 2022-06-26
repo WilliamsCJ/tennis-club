@@ -12,7 +12,7 @@ import PlayersTable from '../components/players/PlayersTable';
 export async function getServerSideProps() {
   let data, error = null;
   log.debug("fetching players")
-  log.debug(process.cwd("."))
+  log.debug(process.cwd("/var/task/node_modules/.prisma/client"))
 
   try {
     data = await prisma.players.findMany({
