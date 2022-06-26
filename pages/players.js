@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+import { log } from 'next-axiom';
 
 import prisma from '../lib/prisma'
 
@@ -10,6 +11,7 @@ import PlayersTable from '../components/players/PlayersTable';
 
 export async function getServerSideProps() {
   let data, error = null;
+  log.debug("fetching players")
 
   try {
     data = await prisma.players.findMany({
@@ -42,7 +44,8 @@ export async function getServerSideProps() {
     })
 
 } catch(e) {
-    error = "An unknown error occurred."
+  log.error("Couldn't fetch players", JSON.stringify(e))
+  error = "An unknown error occurred."
 }
 
   return {props: { data, error }}
