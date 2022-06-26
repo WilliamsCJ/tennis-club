@@ -1,6 +1,7 @@
 import { React, useState } from 'react';
 import { log } from 'next-axiom';
-import { PrismaClient } from '@prisma/client';
+
+import prisma from '../lib/prisma';
 
 import Button from '../components/general/Button';
 import Error from '../components/general/Error';
@@ -11,8 +12,6 @@ import PlayersTable from '../components/players/PlayersTable';
 export async function getServerSideProps() {
   let data, error = null;
   log.debug("fetching players")
-
-  const prisma = new PrismaClient();
 
   try {
     data = await prisma.players.findMany({
