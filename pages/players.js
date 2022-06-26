@@ -9,9 +9,10 @@ import Header from '../components/general/Header';
 import NewPlayer from '../components/players/NewPlayer';
 import PlayersTable from '../components/players/PlayersTable';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   let data, error = null;
   log.debug("fetching players")
+  log.debug(process.cwd("."))
 
   try {
     data = await prisma.players.findMany({
