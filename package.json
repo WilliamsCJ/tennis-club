@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cp prisma/tennis-club.sqlite node_modules/.prisma/client/tennis-club.sqlite && ls .",
+    "build": "cp prisma/tennis-club.sqlite node_modules/.prisma/client/tennis-club.sqlite && next build && tree .",
     "start": "next start"
   },
   "dependencies": {
