@@ -23,7 +23,6 @@ export default function PlayersTable({data}) {
                 {/* Map each player in data to TableRow */}
                 {data && data.map((player) => (
                     <TableRow 
-                        key={player} 
                         col2="Email"
                         col3="Phone Number(s)"
                         val1={player.fullname}
