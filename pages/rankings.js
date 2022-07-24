@@ -1,15 +1,23 @@
 import { React } from 'react';
-import useSWR from 'swr';
 import Error from '../components/general/Error';
 import Header from '../components/general/Header';
 import RankingsTable from '../components/rankings/RankingsTable';
 
-import fetcher from '../lib/fetcher';
+import prisma from '../lib/prisma'
 
-export default function Rankings() {
-    // useSWR hook for fetching players data.
-    const { data, error } = useSWR('/api/rankings', fetcher)
+export async function getServerSideProps() {
+  let data, error = null;
 
+  try{
+      data = await prisma.rankings.findMany();
+    } catch(e) {
+      error = "An unknown error occurred."
+  }
+
+  return {props: { data, error } }
+}
+
+export default function Rankings({ data, error }) {
   return (
     <div className="px-4 sm:px-6 lg:px-8 mt-8 mb-8">
         <div className="sm:flex sm:items-center">
