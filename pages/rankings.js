@@ -2,7 +2,6 @@ import { React } from 'react';
 import Error from '../components/general/Error';
 import Header from '../components/general/Header';
 import RankingsTable from '../components/rankings/RankingsTable';
-import { log } from 'next-axiom';
 
 import prisma from '../lib/prisma'
 
@@ -25,9 +24,6 @@ export async function getServerSideProps() {
         },
       });
 
-      log.debug("fetched players for rankings successfully")
-      log.debug(data)
-
       data.forEach(function(player) {
           player.fullname = [player.forename, player.middlenames, player.surname].join(' ');
           player.played = player._count.matches_matches_p1_emailToplayers + player._count.matches_matches_p2_emailToplayers;
@@ -36,8 +32,6 @@ export async function getServerSideProps() {
           delete player.middlenames;
           delete player.surname;
       })
-  
-      log.debug("players transformed")
     } catch(e) {
       error = "An unknown error occurred."
   }
