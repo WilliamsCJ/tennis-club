@@ -6,5 +6,5 @@ Modified from coursework for a university databases module.
 
 ## Database
 
-The original database was implemented as a MySQL database. However this was switched to SQLite for this demo, so that database hosting was not required.
+The original database was implemented as a MariaDB database, however this was switched to a PlanetScale MySQL database.
 
