@@ -7,7 +7,6 @@ const pages = ["Matches", "Players", "Rankings"];
 
 /**
  * Navigation bar shown at the top of page. 
- * Modified from example at: https://tailwindui.com/components/application-ui/navigation/navbars
  */
 export default function NavBar() {
   const router = useRouter();

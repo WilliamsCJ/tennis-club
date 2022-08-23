@@ -2,7 +2,6 @@ import { React } from 'react';
 
 /**
  * Date picker forms.
- * Modified from examples at: https://tailwindui.com/components/application-ui/forms/form-layouts 
  */
 export default function DateField({ label, id, value, onChange, error, bday}) {
   return (

@@ -2,7 +2,6 @@ import { React } from 'react';
 
 /**
  * Dropdown field to a court from a venues courts when creating a new match.
- * Modified from example at: https://tailwindui.com/components/application-ui/forms/form-layouts 
  */
 export default function PlayerField({ value, onChange, venues, error }) {
   return (

@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 
 /**
  * Javascript Modal Container. Used by both NewPlayer and NewMatch modals.
- * Modified from example at: https://headlessui.dev/react/dialog 
  */
 export default function Modal({ open, setOpen, children }) {
   return (

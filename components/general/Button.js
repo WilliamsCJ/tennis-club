@@ -2,7 +2,6 @@ import { React } from 'react';
 
 /**
  * Button for opening modal, mainly to create a  new player or match.
- * Modified from example at: https://tailwindui.com/components/application-ui/headings/card-headings 
  */
 export default function Button({ text, onClick }) {
     return (

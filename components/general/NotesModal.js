@@ -6,7 +6,6 @@ import Modal from './Modal';
 
 /**
  * Notes modal for showing extra information. 
- * Modified from example at: https://headlessui.dev/react/dialog 
  */
 export default function NotesModal({ title, notes, open, setOpen }) {
   return (

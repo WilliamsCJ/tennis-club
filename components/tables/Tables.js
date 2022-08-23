@@ -4,7 +4,6 @@ import Ping from '../notifications/Ping';
 
 /**
  * Table row.
- * Modified from example at: https://tailwindui.com/components/application-ui/lists/tables 
  */
  export function TableRow({key, col2, col3, val1, val2, val3, notes}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);

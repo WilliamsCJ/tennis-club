@@ -16,7 +16,6 @@ import Toggle from '../form/Toggle';
 
 /**
  * NewPlayer modal. Allows user to create a new player in the database. Uses Formik to manage forms validation.
- * Modified from form example at: https://tailwindui.com/components/application-ui/forms/form-layouts 
  */
 export default function NewPlayer({ open, setOpen, mutate }) {
   const [additional, setAdditional] = useState(false)

@@ -2,7 +2,6 @@ import { React } from 'react';
 
 /**
  * Divider for the match card.
- * Modified from an example at: https://tailwindui.com/components/application-ui/layout/dividers
  */
 export default function Divider() {
     return (

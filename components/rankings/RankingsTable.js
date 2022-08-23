@@ -4,7 +4,6 @@ import { TableRow, TableHeader } from '../tables/Tables';
 
 /**
  * Rankings table. Using win_count view.
- * Modified from example at: https://tailwindui.com/components/application-ui/lists/tables 
  */
  export default function RankingsTable({data}) {
   return (
