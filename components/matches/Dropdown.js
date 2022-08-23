@@ -4,7 +4,6 @@ import { CheckIcon, LocationMarkerIcon, ChevronDownIcon } from '@heroicons/react
 
 /**
  * Venues dropdown, used to select a venue.
- * Modified from example: https://headlessui.dev/react/listbox
  */
 export default function DropDown({ options, label, selected, setSelected }) {  
     return (

@@ -1,44 +1,55 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./tennis-club.sqlite"
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model courts {
-  venue        String
   court_number Int
-  surface      String
-  notes        String?
-  venues       venues    @relation(fields: [venue], references: [name])
+  venue        String    @db.VarChar(255)
+  surface      String?   @db.VarChar(255)
+  notes        String?   @db.VarChar(255)
+  venues       venues    @relation(fields: [venue], references: [name], map: "fk_venue")
   matches      matches[]
 
   @@id([court_number, venue])
 }
 
 model matches {
-  id                                Int      @id @default(autoincrement())
-  p1_email                          String?
-  p2_email                          String?
-  date_played                       DateTime
-  court_number                      Int
-  venue_name                        String
-  courts                            courts   @relation(fields: [court_number, venue_name], references: [court_number, venue], onUpdate: Restrict)
-  players_matches_p1_emailToplayers players? @relation("matches_p1_emailToplayers", fields: [p1_email], references: [email])
-  players_matches_p2_emailToplayers players? @relation("matches_p2_emailToplayers", fields: [p2_email], references: [email])
+  id                                Int       @id @unique(map: "id")
+  p1_email                          String?   @db.VarChar(255)
+  p2_email                          String?   @db.VarChar(255)
+  date_played                       DateTime? @db.Date
+  court_number                      Int?
+  venue_name                        String?   @db.VarChar(255)
+  courts                            courts?    @relation(fields: [court_number, venue_name], references: [court_number, venue], onUpdate: Restrict, map: "fk_matches_location")
+  players_matches_p1_emailToplayers players?  @relation("matches_p1_emailToplayers", fields: [p1_email], references: [email], map: "fk_p1_email")
+  players_matches_p2_emailToplayers players?  @relation("matches_p2_emailToplayers", fields: [p2_email], references: [email], map: "fk_p2_email")
   sets                              sets[]
 }
 
+model player_phones {
+  email        String  @db.VarChar(255)
+  phone_number String  @db.VarChar(255)
+  phone_type   String? @db.VarChar(255)
+  players      players @relation(fields: [email], references: [email], onDelete: Cascade, map: "fk_player_phones")
+
+  @@id([email, phone_number])
+}
+
 model players {
-  email                             String          @id
-  forename                          String
-  middlenames                       String?
-  surname                           String
-  date_of_birth                     DateTime
-  elo                               Int             @default(1000)
-  notes                             String?
+  email                             String          @id @db.VarChar(255)
+  forename                          String?         @db.VarChar(255)
+  middlenames                       String?         @db.VarChar(255)
+  surname                           String?         @db.VarChar(255)
+  date_of_birth                     DateTime?       @db.Date
+  elo                               Int?
+  notes                             String?         @db.VarChar(255)
   matches_matches_p1_emailToplayers matches[]       @relation("matches_p1_emailToplayers")
   matches_matches_p2_emailToplayers matches[]       @relation("matches_p2_emailToplayers")
   player_phones                     player_phones[]
@@ -47,30 +58,15 @@ model players {
 model sets {
   match_id     Int
   set_number   Int
-  p1_games_won Int
-  p2_games_won Int
-  matches      matches @relation(fields: [match_id], references: [id], onUpdate: Restrict)
+  p1_games_won Int?
+  p2_games_won Int?
+  matches      matches @relation(fields: [match_id], references: [id], onUpdate: Restrict, map: "fk_sets")
 
   @@id([match_id, set_number])
 }
 
 model venues {
-  name    String   @id
-  address String
+  name    String   @id @db.VarChar(255)
+  address String?  @db.VarChar(255)
   courts  courts[]
-}
-
-model player_phones {
-  email        String
-  phone_number String
-  phone_type   String
-  players      players @relation(fields: [email], references: [email], onDelete: Cascade)
-
-  @@id([email, phone_number])
-}
-
-model rankings {
-  fullname  String @unique
-  elo       Int
-  wins      Int
 }

@@ -2,7 +2,6 @@ import { React } from 'react';
 
 /**
  * Dropdown field to select a phone type
- * Modified from example at: https://tailwindui.com/components/application-ui/forms/form-layouts 
  */
 export default function PhoneTypeField({ value, onChange, id}) {
   return (

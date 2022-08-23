@@ -1,25 +1,65 @@
 import { React, useState } from 'react';
-import useSWR, { useSWRConfig } from 'swr';
+import { log } from 'next-axiom';
+
+import prisma from '../lib/prisma';
 
 import Button from '../components/general/Button';
 import Error from '../components/general/Error';
 import Header from '../components/general/Header';
-
 import NewPlayer from '../components/players/NewPlayer';
 import PlayersTable from '../components/players/PlayersTable';
 
-import fetcher from '../lib/fetcher';
+export async function getServerSideProps() {
+  let data, error = null;
+  log.debug("fetching players")
+
+  try {
+    data = await prisma.players.findMany({
+        select: {
+            email: true,
+            forename: true,
+            middlenames: true,
+            surname: true,
+            player_phones: {
+                select: {
+                    phone_number: true
+                }, 
+            }
+        },
+        orderBy: {
+            surname: 'asc',
+        }
+    })
+    
+    log.debug("fetched players successfully")
+
+    data.forEach(function(user) {
+        user.fullname = [user.forename, user.middlenames, user.surname].join(' ');
+        user.phone_numbers = user.player_phones.map(function(phone) {
+            return phone.phone_number;
+        }).join(", ");
+
+        delete user.forename;
+        delete user.middlenames;
+        delete user.surname;
+        delete user.player_phones;
+    })
+
+    log.debug("players transformed")
+
+} catch(e) {
+  log.error("Couldn't fetch players")
+  log.error(e)
+  error = "An unknown error occurred."
+}
+
+  return {props: { data, error }}
+}
 
 /**
  * Players page (/players) that displays player contact details. Uses view_contact_details.
  */
-export default function Players() {
-    // useSWR hook for fetching players data.
-    const { data, error } = useSWR('/api/players', fetcher)
-
-    // useSWRConfig hook to manually mutate (aka revalidate) player data when we've created a new record.
-    const { mutate } = useSWRConfig()
-
+export default function Players({ data, error }) {
     // NewPlayer modal open/close state.
     const [isOpen, setIsOpen] = useState(false);
 
@@ -38,7 +78,8 @@ export default function Players() {
         <PlayersTable data={data} />
         
         {/* NewPlayer modal/popup */}
-        <NewPlayer open={isOpen} setOpen={setIsOpen} mutate={mutate} />
+        {/* TODO: Add mock mutate for optimistic UI */}
+        <NewPlayer open={isOpen} setOpen={setIsOpen} />
     </div>
     )
 }

@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+export { reportWebVitals } from 'next-axiom';
 
 import NavBar from '../components/Navbar';
 import Notification from '../components/notifications/Notification';

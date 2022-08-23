@@ -2,7 +2,6 @@ import { React } from 'react';
 
 /**
  * Set label for new match form.
- * Modified from example at: https://tailwindui.com/components/application-ui/forms/form-layouts 
  */
 export default function SetFieldLabel({number, optional}) {
     return (

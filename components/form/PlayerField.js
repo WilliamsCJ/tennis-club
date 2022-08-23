@@ -2,7 +2,6 @@ import { React } from 'react';
 
 /**
  * Dropdown field to select a player from the list of all players
- * Modified from example at: https://tailwindui.com/components/application-ui/forms/form-layouts 
  */
 export default function PlayerField({ number, id, value, onChange, players, error }) {
   return (

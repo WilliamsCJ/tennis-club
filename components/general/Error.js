@@ -3,7 +3,6 @@ import { XCircleIcon } from "@heroicons/react/outline"
 
 /**
  * Error banner. Used for showing user-friendly messages when data can't be fetched.
- * Modified from example at: https://tailwindui.com/components/application-ui/feedback/alerts
  */
 export default function Error({ message }) {
     return (

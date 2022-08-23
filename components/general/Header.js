@@ -2,7 +2,6 @@ import { React } from 'react';
 
 /**
  * Page header with title and description.
- * Modified from example at: https://tailwindui.com/components/application-ui/headings/card-headings
  */
 export default function Header({ title, description }) {
     return (
