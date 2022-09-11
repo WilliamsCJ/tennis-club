@@ -42,7 +42,6 @@ export default async function handler({ query: { venue } }, res) {
     res.status(200).json(result);
   } catch(e) {
     let message;
-    console.log(e)
 
     if (e.code === 'P2002') {
         message = "Couldn't find a venue with that name."
