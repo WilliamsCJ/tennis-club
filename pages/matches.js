@@ -9,7 +9,7 @@ import MatchCard from '../components/matches/MatchCard';
 import NewMatch from '../components/matches/NewMatch';
 
 import Button from '../components/general/Button';
-import Error from '../components/general/Error';
+import ErrorBanner from '../components/general/Error';
 import Header from '../components/general/Header';
 
 export async function getServerSideProps() {
@@ -38,7 +38,7 @@ export default function Matches({ venues, error }) {
   const { mutate } = useSWRConfig()
 
   // NewMatch modal open/close state.
-  let [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 mt-8 mb-8">
@@ -51,7 +51,7 @@ export default function Matches({ venues, error }) {
 
       {/* Render error message if we can't query the matches for a given venue. */}
       {error &&
-        <Error message={"Couldn't load venues."}/>
+        <ErrorBanner message={"Couldn't load venues."}/>
       }
 
       {/* Venues selector. Only render if the venues query has returned. */}
@@ -63,7 +63,7 @@ export default function Matches({ venues, error }) {
 
       {/* Render error message if we can't query the matches for a given venue. */}
       {matchesError && selectedVenue &&
-        <Error message={"Couldn't load matches."}/>
+        <ErrorBanner message={"Couldn't load matches."}/>
       }
 
       {/* Once queried successfully, render the matches as a list of cards. */}

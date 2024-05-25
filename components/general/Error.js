@@ -4,7 +4,7 @@ import { XCircleIcon } from "@heroicons/react/outline"
 /**
  * Error banner. Used for showing user-friendly messages when data can't be fetched.
  */
-export default function Error({ message }) {
+export default function ErrorBanner({ message }) {
     return (
         <div className="rounded-md bg-red-50 p-4 mt-8">
             <div className="flex">
