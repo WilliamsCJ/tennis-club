@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import { log } from 'next-axiom';
 
 import prisma from '../lib/prisma';
 
@@ -11,7 +10,6 @@ import PlayersTable from '../components/players/PlayersTable';
 
 export async function getServerSideProps() {
   let data, error = null;
-  log.debug("fetching players")
 
   try {
     data = await prisma.players.findMany({
@@ -31,25 +29,16 @@ export async function getServerSideProps() {
         }
     })
     
-    log.debug("fetched players successfully")
-
-    data.forEach(function(user) {
+    data.forEach((user) => {
         user.fullname = [user.forename, user.middlenames, user.surname].join(' ');
-        user.phone_numbers = user.player_phones.map(function(phone) {
-            return phone.phone_number;
-        }).join(", ");
+        user.phone_numbers = user.player_phones.map((phone) => phone.phone_number).join(", ");
 
         delete user.forename;
         delete user.middlenames;
         delete user.surname;
         delete user.player_phones;
     })
-
-    log.debug("players transformed")
-
 } catch(e) {
-  log.error("Couldn't fetch players")
-  log.error(e)
   error = "An unknown error occurred."
 }
 

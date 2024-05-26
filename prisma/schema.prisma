@@ -1,6 +1,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
+  binaryTargets   = ["native", "linux-musl"]
 }
 
 datasource db {
@@ -27,7 +28,7 @@ model matches {
   date_played                       DateTime? @db.Date
   court_number                      Int?
   venue_name                        String?   @db.VarChar(255)
-  courts                            courts?    @relation(fields: [court_number, venue_name], references: [court_number, venue], onUpdate: Restrict, map: "fk_matches_location")
+  courts                            courts?   @relation(fields: [court_number, venue_name], references: [court_number, venue], onUpdate: Restrict, map: "fk_matches_location")
   players_matches_p1_emailToplayers players?  @relation("matches_p1_emailToplayers", fields: [p1_email], references: [email], map: "fk_p1_email")
   players_matches_p2_emailToplayers players?  @relation("matches_p2_emailToplayers", fields: [p2_email], references: [email], map: "fk_p2_email")
   sets                              sets[]

@@ -1,6 +1,5 @@
-const { withAxiom } = require("next-axiom")
 
-module.exports = withAxiom({
+module.exports = {
   reactStrictMode: true,
   output: 'standalone',
   async redirects() {
@@ -12,4 +11,4 @@ module.exports = withAxiom({
       },
     ]
   }
-})
+}
