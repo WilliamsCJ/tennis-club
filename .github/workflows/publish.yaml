@@ -43,13 +43,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: | 
-            type=schedule
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=sha          
+            type=semver,pattern={{version}} 
      
       - name: Build and push Docker image
         id: push
@@ -60,4 +54,3 @@ jobs:
           tags: |
             ${{ steps.meta.outputs.tags }}
             latest
-          labels: ${{ steps.meta.outputs.labels }}
