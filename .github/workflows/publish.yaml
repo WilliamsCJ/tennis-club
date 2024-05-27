@@ -34,7 +34,7 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref:  ${{ steps.version.outputs.version }},
+              ref:  '${{ steps.version.outputs.version }}',
               sha: context.sha
             }) 
 
