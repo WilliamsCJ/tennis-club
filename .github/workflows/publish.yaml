@@ -20,6 +20,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Get next version
+        uses: reecetech/version-increment@2024.4.3
+        id: version
+        with:
+          scheme: conventional_commits
+          increment: patch
+
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
