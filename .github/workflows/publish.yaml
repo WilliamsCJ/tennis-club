@@ -54,4 +54,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: williamscj/tennis-club:${{ steps.version.outputs.version }}
+          tags: |
+            williamscj/tennis-club:${{ steps.version.outputs.version }}
+            williamscj/tennis-club:latest
