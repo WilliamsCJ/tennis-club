@@ -13,6 +13,9 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,14 +40,6 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: | 
-            type=semver,pattern={{version}} 
-     
       - name: Build and push Docker image
         id: push
         uses: docker/build-push-action@v5
@@ -52,4 +47,5 @@ jobs:
           context: .
           push: true
           tags: |
+            ${{ steps.version.outputs.version }}
             latest
