@@ -27,11 +27,16 @@ jobs:
           scheme: conventional_commits
           increment: patch
 
-      - name: Tag snapshot
-        uses: tvdias/github-tagger@v0.0.1
+      - name: Create tag
+        uses: actions/github-script@v5
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ steps.version.outputs.version }}
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref:  ${{ steps.version.outputs.version }},
+              sha: context.sha
+            }) 
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
