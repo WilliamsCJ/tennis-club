@@ -54,6 +54,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: |
-            ${{ steps.version.outputs.version }}
-            latest
+          tags: ${{ env.IMAGE_NAME }}/${{ steps.version.outputs.version }}
