@@ -52,5 +52,4 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ steps.version.outputs.version }}
             latest
