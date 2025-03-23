@@ -54,6 +54,8 @@ jobs:
         with:
           context: .
           push: true
+          platforms: |
+            linux/arm64
           tags: |
             williamscj/tennis-club:${{ steps.version.outputs.version }}
             williamscj/tennis-club:latest 
